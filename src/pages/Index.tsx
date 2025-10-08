@@ -11,6 +11,7 @@ const Index = () => {
   const [fps, setFps] = useState(0);
   const [processingTime, setProcessingTime] = useState(0);
 
+  // Main page component - handles state management for video processing demo
   return (
     <div className="min-h-screen bg-background">
       <Hero

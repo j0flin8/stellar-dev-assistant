@@ -25,9 +25,13 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
     const startCamera = async () => {
       try {
         setIsLoading(true);
+        // TODO: Add support for selecting different camera devices
+        // Requesting 640x480 for better performance on mobile devices
         stream = await navigator.mediaDevices.getUserMedia({
           video: { width: 640, height: 480, facingMode: 'user' }
         });
+        
+        console.log('Camera stream initialized:', stream.getVideoTracks()[0].getSettings());
         
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
@@ -37,6 +41,7 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
         }
       } catch (error) {
         console.error("Camera access error:", error);
+        // Note: Some browsers (especially mobile Safari) can be finicky with camera permissions
         setHasCamera(false);
         toast.error("Camera access denied. Using demo mode.");
       } finally {
@@ -76,7 +81,7 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
 
       const startTime = performance.now();
 
-      // Set canvas dimensions
+      // Set canvas dimensions to match video
       originalCanvas.width = video.videoWidth;
       originalCanvas.height = video.videoHeight;
       processedCanvas.width = video.videoWidth;
@@ -88,7 +93,8 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
         originalCtx.drawImage(video, 0, 0);
       }
 
-      // Process frame (simplified edge detection using canvas)
+      // Process frame - simulating Canny edge detection
+      // In production Android app, this would be done in C++ with OpenCV
       const processedCtx = processedCanvas.getContext('2d');
       if (processedCtx && originalCtx) {
         processedCtx.drawImage(video, 0, 0);
@@ -96,11 +102,15 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
         const imageData = processedCtx.getImageData(0, 0, processedCanvas.width, processedCanvas.height);
         const data = imageData.data;
 
-        // Simple grayscale + edge enhancement
+        // Basic edge detection algorithm
+        // TODO: Replace with actual Canny edge detection once OpenCV.js is fully integrated
+        // Currently using simplified threshold-based approach for demo
         for (let i = 0; i < data.length; i += 4) {
+          // Convert to grayscale using standard luminosity formula
           const gray = data[i] * 0.299 + data[i + 1] * 0.587 + data[i + 2] * 0.114;
           
-          // Edge detection simulation
+          // Simple edge detection - threshold at 50
+          // Real Canny uses gradient magnitude and dual threshold
           const edge = Math.abs(gray - 128) > 50 ? 255 : 0;
           
           data[i] = edge;
@@ -111,7 +121,7 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
         processedCtx.putImageData(imageData, 0, 0);
       }
 
-      // Calculate FPS
+      // FPS calculation - update every second
       fpsCounterRef.current.frames++;
       const currentTime = performance.now();
       const elapsed = currentTime - fpsCounterRef.current.lastTime;
@@ -121,6 +131,11 @@ export const VideoProcessor = ({ isProcessing, onFpsUpdate, onProcessingTimeUpda
         onFpsUpdate(fps);
         fpsCounterRef.current.frames = 0;
         fpsCounterRef.current.lastTime = currentTime;
+        
+        // Debug: Log performance metrics periodically
+        if (fps < 20) {
+          console.warn('Low FPS detected:', fps);
+        }
       }
 
       const processingTime = Math.round(performance.now() - startTime);

@@ -2,6 +2,8 @@ import { Card } from "@/components/ui/card";
 import { Code2, Layers, Cpu, Eye, Smartphone, Globe } from "lucide-react";
 
 export const Architecture = () => {
+  // Architecture visualization data
+  // Represents the flow from Android camera to final rendering
   const architectureFlow = [
     {
       icon: Smartphone,
@@ -81,7 +83,7 @@ export const Architecture = () => {
           ))}
         </div>
 
-        {/* Code snippets */}
+        {/* Code snippets - actual implementation examples */}
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="p-6 bg-card/50 backdrop-blur border-border/50">
             <div className="flex items-center gap-2 mb-4">
@@ -96,6 +98,7 @@ public native Mat processFrame(
 );
 
 // C++ implementation
+// Note: Threshold values may need tuning
 JNIEXPORT jlong JNICALL
 Java_EdgeDetector_processFrame(
   JNIEnv* env, 

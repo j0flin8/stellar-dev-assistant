@@ -12,7 +12,7 @@ interface HeroProps {
 export const Hero = ({ isProcessing, onToggleProcessing, fps, processingTime }: HeroProps) => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated background */}
+      {/* Background gradient with animated mesh effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-primary/5" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,191,255,0.1),transparent)]" />
       
@@ -52,6 +52,7 @@ export const Hero = ({ isProcessing, onToggleProcessing, fps, processingTime }: 
                 </>
               )}
             </Button>
+            {/* TODO: Add download processed frame feature */}
             
             <Button
               size="lg"
