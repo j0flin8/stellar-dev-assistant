@@ -2,11 +2,6 @@
 
 A comprehensive demonstration of real-time computer vision concepts, showcasing advanced implementation knowledge of Android Camera API, OpenCV C++, OpenGL ES, and JNI integration through a modern web-based interface.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://your-demo-url.lovable.app)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-18.3-61dafb)](https://reactjs.org/)
-[![OpenCV.js](https://img.shields.io/badge/OpenCV.js-4.9-green)](https://docs.opencv.org/4.x/d5/d10/tutorial_js_root.html)
-
 ## 🎯 Project Overview
 
 This project demonstrates deep understanding of mobile computer vision pipeline architecture, originally designed for Android native development. While the demo runs in a web browser for accessibility, it showcases the same fundamental concepts and architectural patterns used in production Android + OpenCV + OpenGL applications.
@@ -229,10 +224,9 @@ MIT License - feel free to use this for learning and reference.
 
 ## 👤 Author
 
-[Your Name]
-- Portfolio: [your-portfolio-url]
-- LinkedIn: [your-linkedin]
-- Email: [your-email]
+[Joe flinton JA]
+- LinkedIn: [https://www.linkedin.com/in/joe-flinton-283194284/]
+- Email: [joeflinton.ja@gmail.com]
 
 ---
 
